@@ -14,7 +14,7 @@ use App\Http\Controllers\User1Controller;
 |
 */
 
-Route::get('/user', function () {
+Route::get('/', function () {
     return view('user');
 });
 Route::get('/about', function () {
@@ -34,3 +34,22 @@ Route::get("user1", [User1Controller::class, 'index']);
 
 
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
