@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\User1Controller;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\UsersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +29,7 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-// Route::get("user/{user}", [usercontroller::class, 'index']);
+Route::get("user/{user}", [usercontroller::class, 'index']);
 
 Route::view("users", 'users');
 Route::get("user1", [User1Controller::class, 'index']);
@@ -53,3 +56,11 @@ Route::middleware([
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('forms', [FormController::class, 'getData']);
+// To show the view page 
+Route::view("forms", 'forms');
+Route::view("contact",'contact')->middleware('protectedPage');
+Route::view("noaccess",'noaccess');
+
+// route the controller (model part)
+// Route::get('users', [UsersController::class], 'getData1');
