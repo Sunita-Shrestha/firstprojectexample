@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User1Controller;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +65,14 @@ Route::view("noaccess",'noaccess');
 
 // route the controller (model part)
 // Route::get('users', [UsersController::class], 'getData1');
+
+// Route::resource('posts', PostController::class);
+Route::get('/posts', function () {
+    return view('insert');
+});
+//route for post 
+route::post('store', [PostController::class,'store'])->name('store');
+route::get('show', [PostController::class,'show']);
+route::get('delete/{id}', [PostController::class,'destroy']);
+route::get('edit/{id}', [PostController::class,'edit']);
+route::get('update/{id}', [PostController::class, 'update']);
