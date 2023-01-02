@@ -8,6 +8,28 @@
     <body>
         <div class="container">
             <h1 class="text-center">List Of Post</h1>
+            <div>
+            @if(Session::has('success'))
+            <div class="alert alert-success" role="alert">
+            {{Session::get('success')}}
+           </div> 
+            @endif
+            @if(Session::has('update'))
+            <div class="alert alert-primary" role="alert">
+            {{Session::get('update')}}
+           </div> 
+            @endif
+            @if(Session::has('delete'))
+            <div class="alert alert-danger" role="alert">
+            {{Session::get('delete')}}
+           </div> 
+            @endif
+           
+
+         </div>
+
+            <a href="/create" class="btn btn-success btn-sm float-sm-end">Create Post</a> 
+            <br> <br>
             <table class="table table-bordered shadow text-center table-striped">
                 <tr>
                     <th>Post Id</th>
