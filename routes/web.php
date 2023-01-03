@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\usercontroller;
-use App\Http\Controllers\User1Controller;
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -21,19 +17,19 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('user');
 });
-Route::get('/about', function () {
-    return view('about');
-});
-// OR
-// Route::view("about", 'about');
-Route::get('/contact', function () {
-    return view('contact');
-});
+// Route::get('/about', function () {
+//     return view('about');
+// });
+// // OR
+// // Route::view("about", 'about');
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
 
-Route::get("user/{user}", [usercontroller::class, 'index']);
+// Route::get("user/{user}", [usercontroller::class, 'index']);
 
-Route::view("users", 'users');
-Route::get("user1", [User1Controller::class, 'index']);
+// Route::view("users", 'users');
+// Route::get("user1", [User1Controller::class, 'index']);
 
 
 
@@ -57,22 +53,22 @@ Route::middleware([
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('forms', [FormController::class, 'getData']);
+// Route::post('forms', [FormController::class, 'getData']);
 // To show the view page 
-Route::view("forms", 'forms');
-Route::view("contact",'contact')->middleware('protectedPage');
-Route::view("noaccess",'noaccess');
+// Route::view("forms", 'forms');
+// Route::view("contact",'contact')->middleware('protectedPage');
+// Route::view("noaccess",'noaccess');
 
 // route the controller (model part)
 // Route::get('users', [UsersController::class], 'getData1');
 
 // Route::resource('posts', PostController::class);
-Route::get('/posts', function () {
-    return view('insert');
-});
+Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 //route for post 
-route::post('store', [PostController::class,'store'])->name('store');
-route::get('show', [PostController::class,'show']);
+route::post('store', [PostController::class,'store'])->name('posts.store');
+route::get('posts', [PostController::class,'show'])->name('posts.show');
 route::get('delete/{id}', [PostController::class,'destroy']);
+// ->name('posts.delete');
 route::get('edit/{id}', [PostController::class,'edit']);
-route::get('update/{id}', [PostController::class, 'update']);
+// ->name('posts.edit');
+route::get('update/{id}', [PostController::class, 'update'])->name('posts.update');

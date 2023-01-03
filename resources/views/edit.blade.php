@@ -15,14 +15,20 @@
         <div class="mb-3">
             <label><b>Post titile:</b></label>
             <input type="text", name="title" class="form-control"  value={{$posts->post_title}}>
+            <span style="color:red">@error('title'){{$message}}@enderror</span>
+
         </div>
         <div class="mb-3">
             <label><b>Post author:</b></label>
             <input type="text", name="author" class="form-control" value={{$posts->post_author}}>
+            <span style="color:red">@error('author'){{$message}}@enderror</span>
+
         </div>
         <div class="mb-3">
             <label><b>Remark:</b></label>
             <input type="text", name="remark" class="form-control" value={{$posts->Action}}>
+            <span style="color:red">@error('remark'){{$message}}@enderror</span>
+
         </div>
         <input type="submit" name="update" value="Update" class="btn btn-success">
 
