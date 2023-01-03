@@ -15,9 +15,21 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
+
+// < ------------------Route for customauth------------------------------------>
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+    Route::post('post-login', [CustomAuthController::class, 'postLogin'])->name('login.post'); 
+    Route::get('registration', [CustomAuthController::class, 'registration'])->name('register');
+    Route::post('post-registration', [CustomAuthController::class, 'postRegistration'])->name('register.post'); 
+
 });
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
+    Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout');
+});
+// < ------------------ end Route for customauth------------------------------------>
+
 // Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 // Route::post('post-login', [CustomAuthController::class, 'postLogin'])->name('login.post'); 
 // Route::get('registration', [CustomAuthController::class, 'registration'])->name('register');
@@ -58,9 +70,9 @@ Route::get('/home', function () {
 
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Route::post('forms', [FormController::class, 'getData']);
 // To show the view page 
 // Route::view("forms", 'forms');
