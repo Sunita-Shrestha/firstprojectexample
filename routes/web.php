@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -14,9 +15,16 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('user');
+Route::get('/home', function () {
+    return view('welcome');
 });
+// Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+// Route::post('post-login', [CustomAuthController::class, 'postLogin'])->name('login.post'); 
+// Route::get('registration', [CustomAuthController::class, 'registration'])->name('register');
+// Route::post('post-registration', [CustomAuthController::class, 'postRegistration'])->name('register.post'); 
+// Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
+// Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout');
+
 // Route::get('/about', function () {
 //     return view('about');
 // });
@@ -35,15 +43,15 @@ Route::get('/', function () {
 
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
 
 
 
