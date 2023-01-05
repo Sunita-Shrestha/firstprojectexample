@@ -45,7 +45,7 @@ class PostController extends Controller
 
         // Retrieve the validate input data..
 
-        
+
 
         $post=new Post;
         $post->post_title=$request->get('title');
@@ -54,10 +54,10 @@ class PostController extends Controller
         // save() insert the data into database
         $post->save();
         // echo "<h1>Data is inserted successfully.....</h1>";
-        return redirect()->route('posts.show')->with('success','Post has been created successfully');
+        return redirect()->route('posts.show')->with('success-create','Post has been created successfully');
 
 
-        
+
     }
 
     /**
@@ -72,23 +72,23 @@ class PostController extends Controller
         $posts =Post::all();
         // I want to show this data in view page so created show page
         return view('show', ['posts' => $posts]);
-        
+
           }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function edit(Post $post, $id)
+    public function edit(Post $post)
     {
         //
-        
-        $posts=Post::find($id);
-        return view('edit', ['posts' => $posts]);
 
-        
+        // $posts=Post::find($id);
+        return view('edit', compact('post'));
+
+
 
 
     }
@@ -100,7 +100,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostsFormRequest $request, Post $post ,$id)
+    public function update(PostsFormRequest $request, Post $post)
 
     {
         //
@@ -109,11 +109,11 @@ class PostController extends Controller
         //     'author'=>'required | alpha',
         //     'remark'=> 'max:200'
         // ]);
-        $posts=Post::find($id);
-        $posts->post_title = $request->get('title');
-        $posts->post_author = $request->get('author');
-        $posts->Action = $request->get('remark');
-        $posts->save();
+        // $posts=Post::find($id);
+        $post->post_title = $request->get('title');
+        $post->post_author = $request->get('author');
+        $post->Action = $request->get('remark');
+        $post->save();
         // return redirect('show');
         return redirect()->route('posts.show')->with('update','Post has been updated');
 
@@ -126,15 +126,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post, $id)
+    public function destroy(Post $post)
     {
         //
 
-        $post=Post::find($id);
+        // $post=Post::find($id);
         $post->delete();
         // return redirect('show');
         return redirect()->route('posts.show')->with('delete','Post has been deleted');
 
-        
+
     }
 }

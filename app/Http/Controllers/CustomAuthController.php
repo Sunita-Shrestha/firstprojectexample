@@ -18,8 +18,8 @@ class CustomAuthController extends Controller
     public function index()
     {
         return view('customauth.custom_login');
-    }  
-      
+    }
+
     /**
      * Write code on Method
      *
@@ -29,7 +29,7 @@ class CustomAuthController extends Controller
     {
         return view('customauth.custom_registration');
     }
-      
+
     /**
      * Write code on Method
      *
@@ -41,23 +41,23 @@ class CustomAuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-   
+
         $credentials = $request->only('email', 'password');
         if (\Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                        ->withSuccess('success', 'You have Successfully logged in');
+            // return redirect()->intended(route('posts.show'))
+            return redirect()->intended('dashboard');
         }
-  
+
         return redirect("login")->withSuccess('error', 'Oppes! You have entered invalid credentials');
     }
-      
+
     /**
      * Write code on Method
      *
      * @return response()
      */
     public function postRegistration(Request $request)
-    {  
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -70,10 +70,10 @@ class CustomAuthController extends Controller
             'password'=>Hash::make($request->password)
 
         ]);
-         
+
         return redirect("dashboard")->withSuccess('success', 'Great! You have Successfully logged in');
     }
-    
+
     /**
      * Write code on Method
      *
@@ -84,10 +84,10 @@ class CustomAuthController extends Controller
         if(Auth::check()){
             return view('dashboard');
         }
-  
+
         return redirect("login")->withSuccess('success', 'Opps! You do not have access');
     }
-    
+
     /**
      * Write code on Method
      *
@@ -101,7 +101,7 @@ class CustomAuthController extends Controller
         'password' => Hash::make($data['password'])
       ]);
     }
-    
+
     /**
      * Write code on Method
      *
@@ -110,7 +110,7 @@ class CustomAuthController extends Controller
     public function logout() {
         Session::flush();
         Auth::logout();
-  
+
         return Redirect('login');
     }
 }
